@@ -1,11 +1,6 @@
-class CreateComments < ActiveRecord::Migration
-  def change
-    create_table :comments do |t|
-      t.references :image, index: true, foreign_key: true, null: false
-      t.text :body, null: false
-
-      t.timestamps null: false
-    end
-  end
-  #belongs_to :image
+class Create < ActiveRecord::Base
+  validates :body, presence: true
+  validates :image, presence: true
+  
+  belong_to :image
 end

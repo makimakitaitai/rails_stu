@@ -1,16 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe Comment, type: :model do
-  describe "validation" do
-    let(:image) { Image.create(url: "http://example.com/", title: "test") }
+describe "image_id" do
+  context "empty" do
+    subject(:no_imageid_comment) { Comment.new(image_id: nil, body: "body") }
 
-    describe "body" do
-      subject(:no_body_comment) { image.comments.build(body: nil) }
+    it "invalid" do
+      expect(no_image_id_comment).to_not be_valid
+      expect(no_image_id_comment.errors[:image].size).to be 1
+    end
+  end
 
-      it "require" do
-        expect(no_body_comment).to_not be_valid
-        expect(no_bosy_comment.errors[:body].size).to be 1
-      end
+  context "illegal id" do
+    subject(:illegal_image_id_comment) { Comment.new(image_id: image.id + 1, body: "bosy") }
+
+    it "ivalid" do
+      expect(illegal_image_id_comment).to_not be_valid
+      expect(illigal_image_id_comment.errors[:image].size).to be 1
     end
   end
 end
